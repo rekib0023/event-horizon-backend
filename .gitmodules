@@ -1,3 +1,6 @@
 [submodule "auth"]
 	path = auth
 	url = https://github.com/rekib0023/event-horizon-auth
+[submodule "api-gateway"]
+	path = api-gateway
+	url = https://github.com/rekib0023/event-horizon-gateway
