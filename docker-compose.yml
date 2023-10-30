@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  nats-server:
+    image: nats
+    container_name: event-horizon-nats-server
+    ports:
+      - "4222:4222"
+      - "6222:6222"
+      - "8222:8222"
+    restart: always
+
+  mongodb:
+    image: mongo
+    container_name: event-mgt-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+  mysql:
+    image: mysql
+    container_name: event-auth-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: event_horizon_auth
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: always
+
+volumes:
+  mongo-data:
+  mysql-data:
