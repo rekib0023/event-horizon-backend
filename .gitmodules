@@ -9,3 +9,4 @@
 [submodule "event-horizon-eventmgt"]
 	path = event-horizon-eventmgt
 	url = https://github.com/rekib0023/event-horizon-eventmgt
+	branch = main
