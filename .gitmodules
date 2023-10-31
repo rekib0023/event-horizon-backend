@@ -10,3 +10,7 @@
 	path = event-horizon-eventmgt
 	url = https://github.com/rekib0023/event-horizon-eventmgt
 	branch = main
+[submodule "mail-service"]
+	path = mail-service
+	url = https://github.com/rekib0023/event-horizon-mail-service
+	branch = main
