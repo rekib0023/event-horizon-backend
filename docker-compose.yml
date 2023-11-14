@@ -1,6 +1,27 @@
 version: '3'
 
 services:
+  event-horizon-auth:
+    build: ./auth
+    ports:
+      - "50051:50051"
+    env_file:
+      - ./auth/.env
+    depends_on:
+      - event-auth-mysql
+      - nats-server
+    restart: always
+  
+  event-horizon-gateway:
+    build: ./api-gateway
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./api-gateway/.env
+    depends_on:
+      - event-horizon-auth
+    restart: always
+
   nats-server:
     image: nats
     container_name: event-horizon-nats-server
@@ -10,28 +31,24 @@ services:
       - "8222:8222"
     restart: always
 
-  mongodb:
+  event-mgt-mongodb:
     image: mongo
     container_name: event-mgt-mongodb
     ports:
       - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+    env_file:
+      - .env
     volumes:
       - mongo-data:/data/db
     restart: always
 
-  mysql:
+  event-auth-mysql:
     image: mysql
     container_name: event-auth-mysql
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: event_horizon_auth
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: password
+    env_file:
+      - .env
     volumes:
       - mysql-data:/var/lib/mysql
     restart: always
