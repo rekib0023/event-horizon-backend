@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+  event-horizon-eventmgt:
+    build: ./event-horizon-eventmgt
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./event-horizon-eventmgt/.env
+    depends_on:
+      - event-mgt-mongodb
+      - nats-server
+    restart: always
+
   event-horizon-auth:
     build: ./auth
     ports:
@@ -20,6 +31,16 @@ services:
       - ./api-gateway/.env
     depends_on:
       - event-horizon-auth
+      - event-horizon-eventmgt
+    restart: always
+
+  event-horizon-mailsvc:
+    build: ./mail-service
+    env_file:
+      - ./mail-service/.env
+    depends_on:
+      - nats-server
+      - smtp4dev
     restart: always
 
   nats-server:
