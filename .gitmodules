@@ -1,7 +1,7 @@
 [submodule "auth"]
 	path = auth
 	url = https://github.com/rekib0023/event-horizon-auth
-	branch = main
+	branch = event-horizon
 [submodule "api-gateway"]
 	path = api-gateway
 	url = https://github.com/rekib0023/event-horizon-gateway
@@ -13,4 +13,4 @@
 [submodule "mail-service"]
 	path = mail-service
 	url = https://github.com/rekib0023/event-horizon-mail-service
-	branch = main
+	branch = event-horizon
